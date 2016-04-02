@@ -14,8 +14,6 @@ class NewsController extends Controller
 	 */
 	public function indexAction()
 	{
-		return ['newsCollection' => $this->get('app.news_deserializer')->deserializeCollection(
-			file_get_contents($this->get('kernel')->getRootDir().'/../web/import/news.json')
-		)];
+		return ['newsCollection' => $this->get('app.news_importer')->importFromJsonFile('news.json')];
 	}
 }

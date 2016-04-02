@@ -9,3 +9,9 @@ services:
         arguments:
           - @jms_serializer
           - 'json'
+
+    app.news_importer:
+        class: AppBundle\Service\NewsImporter
+        arguments:
+          - @app.news_deserializer
+          - "%kernel.root_dir%/../web/import/"
