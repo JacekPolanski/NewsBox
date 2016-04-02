@@ -26,15 +26,9 @@ class NewsDeserializerTest extends \PHPUnit_Framework_TestCase
 		$expectedNewsTime = '2016-04-02 14:24';
 		$expectedNewsContent = 'Tragiczny wypadek na trasie Bydgoszcz-Stryszek, gdzie zderzyły się trzy samochody.';
 
-		$json = '
-			{
-		      "title":"'.$expectedNewsTitle.'",
-		      "time":"'.$expectedNewsTime.'",
-		      "content":"'.$expectedNewsContent.'"
-		    }
-		';
-
-		$news = $this->deserializer->deserializeOne($json);
+		$news = $this->deserializer->deserializeOne(
+			$this->prepareSingleJsonNews($expectedNewsTitle, $expectedNewsTime, $expectedNewsContent)
+		);
 
 		$this->assertInstanceOf('AppBundle\Entity\News', $news);
 
@@ -49,22 +43,11 @@ class NewsDeserializerTest extends \PHPUnit_Framework_TestCase
 		$expectedNewsTime = '2016-04-02 14:24';
 		$expectedNewsContent = 'Tragiczny wypadek na trasie Bydgoszcz-Stryszek, gdzie zderzyły się trzy samochody.';
 
-		$json = '
-		  [
-		    {
-		      "title":"'.$expectedNewsTitle.'",
-		      "time":"'.$expectedNewsTime.'",
-		      "content":"'.$expectedNewsContent.'"
-		    },
-		    {
-		      "title": "'.$expectedNewsTitle.'",
-		      "time": "'.$expectedNewsTime.'",
-		      "content": "'.$expectedNewsContent.'"
-		    }
-		  ]
-		';
+		$newsCollection = $this->deserializer->deserializeCollection(
+			$this->prepareJsonNewsCollection($expectedNewsTitle, $expectedNewsTime, $expectedNewsContent)
+		);
 
-		foreach ($this->deserializer->deserializeCollection($json) as $news) {
+		foreach ($newsCollection as $news) {
 			$this->assertInstanceOf('AppBundle\Entity\News', $news);
 
 			$this->assertEquals($expectedNewsTitle, $news->getTitle());
@@ -76,5 +59,38 @@ class NewsDeserializerTest extends \PHPUnit_Framework_TestCase
 	protected function setUp()
 	{
 		$this->deserializer = new NewsDeserializer(SerializerBuilder::create()->build(), 'json');
+	}
+
+	/**
+	 * @param string $title
+	 * @param string $time
+	 * @param string $content
+	 * @return string
+	 */
+	private function prepareSingleJsonNews($title, $time, $content)
+	{
+		return '
+			{
+		      "title":"'.$title.'",
+		      "time":"'.$time.'",
+		      "content":"'.$content.'"
+		    }
+		';
+	}
+
+	/**
+	 * @param string $title
+	 * @param string $time
+	 * @param string $content
+	 * @return string
+	 */
+	private function prepareJsonNewsCollection($title, $time, $content)
+	{
+		return '
+		  [
+		    '.$this->prepareSingleJsonNews($title, $time, $content).',
+		    '.$this->prepareSingleJsonNews($title, $time, $content).'
+		  ]
+		';
 	}
 }
