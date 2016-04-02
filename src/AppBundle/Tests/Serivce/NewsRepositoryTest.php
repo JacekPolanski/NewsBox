@@ -4,15 +4,15 @@ namespace AppBundle\Tests\Service;
 
 use AppBundle\Service\NewsDeserializer;
 use AppBundle\Service\NewsImporter;
-use AppBundle\Service\NewsManager;
+use AppBundle\Service\NewsRepository;
 use JMS\Serializer\SerializerBuilder;
 
-class NewsManagerTest extends \PHPUnit_Framework_TestCase
+class NewsRepositoryTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var NewsManager
+	 * @var NewsRepository
 	 */
-	private $manager;
+	private $repository;
 
 	/**
 	 * @dataProvider provideData
@@ -21,7 +21,7 @@ class NewsManagerTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetNewsById($id, $expectedTitle)
 	{
-		$news = $this->manager->findById($id);
+		$news = $this->repository->findById($id);
 
 		$this->assertInstanceOf('AppBundle\Entity\News', $news);
 		$this->assertEquals($expectedTitle, $news->getTitle());
@@ -37,7 +37,7 @@ class NewsManagerTest extends \PHPUnit_Framework_TestCase
 
 	protected function setUp()
 	{
-		$this->manager = new NewsManager(
+		$this->repository = new NewsRepository(
 			new NewsImporter(
 				new NewsDeserializer(SerializerBuilder::create()->build(), 'json'),
 				__DIR__.'/Resources/'

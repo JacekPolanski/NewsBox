@@ -4,7 +4,7 @@ namespace AppBundle\Service;
 
 use AppBundle\Entity\News;
 
-class NewsManager
+class NewsRepository
 {
 	/**
 	 * @var News[]

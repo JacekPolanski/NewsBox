@@ -16,8 +16,8 @@ services:
           - @app.news_deserializer
           - "%data_file_dir%"
 
-    app.news_manager:
-        class: AppBundle\Service\NewsManager
+    app.news_repository:
+        class: AppBundle\Service\NewsRepository
         arguments:
           - @app.news_importer
           - "%data_file_name%"
