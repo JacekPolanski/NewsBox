@@ -21,7 +21,7 @@ class NewsManagerTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetNewsById($id, $expectedTitle)
 	{
-		$news = $this->manager->getNewsById($id);
+		$news = $this->manager->findById($id);
 
 		$this->assertInstanceOf('AppBundle\Entity\News', $news);
 		$this->assertEquals($expectedTitle, $news->getTitle());

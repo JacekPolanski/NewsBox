@@ -22,7 +22,7 @@ class NewsManager
 	 * @param $id
 	 * @return \AppBundle\Entity\News|null
 	 */
-	public function getNewsById($id)
+	public function findById($id)
 	{
 		foreach ($this->newsCollection as $news) {
 			if ((int) $id === $news->getId()) {
