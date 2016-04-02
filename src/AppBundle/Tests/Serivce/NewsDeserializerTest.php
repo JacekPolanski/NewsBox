@@ -4,6 +4,7 @@ namespace AppBundle\Tests\Service;
 
 use AppBundle\Entity\News;
 use AppBundle\Service\NewsDeserializer;
+use JMS\Serializer\Exception\RuntimeException;
 use JMS\Serializer\SerializerBuilder;
 
 class NewsDeserializerTest extends \PHPUnit_Framework_TestCase
@@ -19,6 +20,20 @@ class NewsDeserializerTest extends \PHPUnit_Framework_TestCase
 	public function testDeserializeUnsupportedDataFormat()
 	{
 		new NewsDeserializer(SerializerBuilder::create()->build(), 'mp3');
+	}
+
+	/**
+	 * @expectedException RuntimeException
+	 */
+	public function testDeserializeJsonWithSyntaxError()
+	{
+		$json = '
+	      "title":"cos",
+	      "time":"xxxxxx",
+	      "content":"asd"
+		';
+
+		$this->deserializer->deserializeOne($json);
 	}
 
 	/**
