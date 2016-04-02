@@ -3,9 +3,17 @@
 namespace AppBundle\Entity;
 
 use JMS\Serializer\Annotation\Type;
+use JMS\Serializer\Annotation\Inline;
 
 class News
 {
+	/**
+	 * @var int
+	 *
+	 * @Type("integer")
+	 */
+	private $id;
+
 	/**
 	 * @var string
 	 *
@@ -74,4 +82,21 @@ class News
 	{
 		$this->content = $content;
 	}
+
+	/**
+	 * @return int
+	 */
+	public function getId()
+	{
+		return $this->id;
+	}
+
+	/**
+	 * @param int $id
+	 */
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+
 }
