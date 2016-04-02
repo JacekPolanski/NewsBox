@@ -2,6 +2,7 @@
 
 namespace AppBundle\Tests\Service;
 
+use AppBundle\Entity\News;
 use AppBundle\Service\NewsDeserializer;
 use JMS\Serializer\SerializerBuilder;
 
@@ -33,10 +34,7 @@ class NewsDeserializerTest extends \PHPUnit_Framework_TestCase
 		);
 
 		$this->assertInstanceOf('AppBundle\Entity\News', $news);
-
-		$this->assertEquals($expectedTitle, $news->getTitle());
-		$this->assertEquals($expectedTime, $news->getTime()->format('Y-m-d H:i'));
-		$this->assertEquals($expectedContent, $news->getContent());
+		$this->assertNewsEquals($expectedTitle, $expectedTime, $expectedContent, $news);
 	}
 
 	/**
@@ -53,10 +51,7 @@ class NewsDeserializerTest extends \PHPUnit_Framework_TestCase
 
 		foreach ($newsCollection as $news) {
 			$this->assertInstanceOf('AppBundle\Entity\News', $news);
-
-			$this->assertEquals($expectedTitle, $news->getTitle());
-			$this->assertEquals($expectedTime, $news->getTime()->format('Y-m-d H:i'));
-			$this->assertEquals($expectedContent, $news->getContent());
+			$this->assertNewsEquals($expectedTitle, $expectedTime, $expectedContent, $news);
 		}
 	}
 
@@ -110,5 +105,18 @@ class NewsDeserializerTest extends \PHPUnit_Framework_TestCase
 		    '.$this->prepareSingleJsonNews($title, $time, $content).'
 		  ]
 		';
+	}
+
+	/**
+	 * @param string $expectedTitle
+	 * @param string $expectedTime
+	 * @param string $expectedContent
+	 * @param News $news
+	 */
+	private function assertNewsEquals($expectedTitle, $expectedTime, $expectedContent, News $news)
+	{
+		$this->assertEquals($expectedTitle, $news->getTitle());
+		$this->assertEquals($expectedTime, $news->getTime()->format('Y-m-d H:i'));
+		$this->assertEquals($expectedContent, $news->getContent());
 	}
 }
