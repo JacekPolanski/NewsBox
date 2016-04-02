@@ -14,10 +14,10 @@ services:
         class: AppBundle\Service\NewsImporter
         arguments:
           - @app.news_deserializer
-          - "%kernel.root_dir%/../web/import/"
+          - "%data_file_dir%"
 
     app.news_manager:
         class: AppBundle\Service\NewsManager
         arguments:
           - @app.news_importer
-          - "news.json"
+          - "%data_file_name%"
