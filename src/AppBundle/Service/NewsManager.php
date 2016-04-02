@@ -2,6 +2,8 @@
 
 namespace AppBundle\Service;
 
+use AppBundle\Entity\News;
+
 class NewsManager
 {
 	/**
@@ -20,7 +22,7 @@ class NewsManager
 
 	/**
 	 * @param $id
-	 * @return \AppBundle\Entity\News|null
+	 * @return News|null
 	 */
 	public function findById($id)
 	{
@@ -31,5 +33,13 @@ class NewsManager
 		}
 
 		return null;
+	}
+
+	/**
+	 * @return News[]
+	 */
+	public function findAll()
+	{
+		return $this->newsCollection;
 	}
 }

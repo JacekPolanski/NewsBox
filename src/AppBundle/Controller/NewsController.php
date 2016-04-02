@@ -16,7 +16,7 @@ class NewsController extends Controller
 	 */
 	public function indexAction()
 	{
-		return ['newsCollection' => $this->get('app.news_importer')->importFromJsonFile('news.json')];
+		return ['newsCollection' => $this->get('app.news_manager')->findAll()];
 	}
 
 	/**
