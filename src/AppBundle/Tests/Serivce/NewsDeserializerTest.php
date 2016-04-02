@@ -4,7 +4,6 @@ namespace AppBundle\Tests\Service;
 
 use AppBundle\Entity\News;
 use AppBundle\Service\NewsDeserializer;
-use JMS\Serializer\Exception\RuntimeException;
 use JMS\Serializer\SerializerBuilder;
 
 class NewsDeserializerTest extends \PHPUnit_Framework_TestCase
@@ -23,7 +22,7 @@ class NewsDeserializerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @expectedException RuntimeException
+	 * @expectedException \RuntimeException
 	 */
 	public function testDeserializeJsonWithSyntaxError()
 	{
@@ -34,6 +33,20 @@ class NewsDeserializerTest extends \PHPUnit_Framework_TestCase
 		';
 
 		$this->deserializer->deserializeOne($json);
+	}
+
+	/**
+	 * @dataProvider provideDataWithWrongValues
+	 * @expectedException \RuntimeException
+	 * @param string $expectedTitle
+	 * @param string $expectedTime
+	 * @param string $expectedContent
+	 */
+	public function testDeserializeJsonWithWrongValues($expectedTitle, $expectedTime, $expectedContent)
+	{
+		$this->deserializer->deserializeOne(
+			$this->prepareSingleJsonNews($expectedTitle, $expectedTime, $expectedContent)
+		);
 	}
 
 	/**
@@ -79,6 +92,20 @@ class NewsDeserializerTest extends \PHPUnit_Framework_TestCase
 			[
 				'Zderzyły się trzy auta. Jedna osoba nie żyje, pięć jest rannych',
 				'2016-04-02 14:24',
+				'Tragiczny wypadek na trasie Bydgoszcz-Stryszek, gdzie zderzyły się trzy samochody.',
+			],
+		];
+	}
+
+	/**
+	 * @return array
+	 */
+	public function provideDataWithWrongValues()
+	{
+		return [
+			[
+				'Zderzyły się trzy auta. Jedna osoba nie żyje, pięć jest rannych',
+				'2016',
 				'Tragiczny wypadek na trasie Bydgoszcz-Stryszek, gdzie zderzyły się trzy samochody.',
 			],
 		];
