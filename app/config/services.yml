@@ -15,3 +15,9 @@ services:
         arguments:
           - @app.news_deserializer
           - "%kernel.root_dir%/../web/import/"
+
+    app.news_manager:
+        class: AppBundle\Service\NewsManager
+        arguments:
+          - @app.news_importer
+          - "news.json"

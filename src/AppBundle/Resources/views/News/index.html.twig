@@ -7,7 +7,8 @@
 	<ul>
 		{% for news in newsCollection %}
 			<li>
-				{{ news.time|date('H:i') }} {{ news.title }}
+				{{ news.time|date('H:i') }}
+				<a href="{{ url('news', {'id': news.id}) }}">{{ news.title }}</a>
 			</li>
 		{% endfor %}
 	</ul>
