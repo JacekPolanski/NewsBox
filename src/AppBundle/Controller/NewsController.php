@@ -16,6 +16,12 @@ class NewsController extends Controller
 	 */
 	public function indexAction()
 	{
+		$newsCollection = $this->get('app.news_repository')->findAll();
+
+		if (!$newsCollection) {
+			throw $this->createNotFoundException('Brak elementów');
+		}
+
 		return ['newsCollection' => $this->get('app.news_repository')->findAll()];
 	}
 
