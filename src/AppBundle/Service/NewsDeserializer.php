@@ -45,7 +45,7 @@ class NewsDeserializer
 
 	/**
 	 * @param $data
-	 * @return NewsCollection
+	 * @return News[]
 	 */
 	public function deserializeCollection($data)
 	{
