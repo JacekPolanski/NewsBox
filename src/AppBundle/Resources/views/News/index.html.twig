@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}News{% endblock %}
+
+{% block body %}
+	<h1>Informacje dnia</h1>
+	<ul>
+		{% for news in newsCollection %}
+			<li>
+				{{ news.time|date('H:i') }} {{ news.title }}
+			</li>
+		{% endfor %}
+	</ul>
+{% endblock %}
