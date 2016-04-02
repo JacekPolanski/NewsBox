@@ -2,20 +2,28 @@
 
 namespace AppBundle\Entity;
 
+use JMS\Serializer\Annotation\Type;
+
 class News
 {
 	/**
 	 * @var string
+	 *
+	 * @Type("string")
 	 */
 	private $title;
 
 	/**
 	 * @var \DateTime
+	 *
+	 * @Type("DateTime<'Y-m-d H:i'>")
 	 */
 	private $time;
 
 	/**
 	 * @var string
+	 *
+	 * @Type("string")
 	 */
 	private $content;
 
