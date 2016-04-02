@@ -4,7 +4,8 @@ parameters:
 #    parameter_name: value
 
 services:
-    app.deserializer:
+    app.news_deserializer:
         class: AppBundle\Service\NewsDeserializer
         arguments:
           - @jms_serializer
+          - 'json'

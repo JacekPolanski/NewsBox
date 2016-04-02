@@ -12,7 +12,15 @@ class NewsDeserializerTest extends \PHPUnit_Framework_TestCase
 	 */
 	private $deserializer;
 
-	public function testDeserializeFromJson()
+	/**
+	 * @expectedException \UnexpectedValueException
+	 */
+	public function testDeserializeUnsupportedDataFormat()
+	{
+		new NewsDeserializer(SerializerBuilder::create()->build(), 'mp3');
+	}
+
+	public function testDeserializeOneFromJson()
 	{
 		$expectedNewsTitle = 'Zderzyły się trzy auta. Jedna osoba nie żyje, pięć jest rannych';
 		$expectedNewsTime = '2016-04-02 14:24';
@@ -26,7 +34,7 @@ class NewsDeserializerTest extends \PHPUnit_Framework_TestCase
 		    }
 		';
 
-		$news = $this->deserializer->deserializeFromJson($json);
+		$news = $this->deserializer->deserializeOne($json);
 
 		$this->assertInstanceOf('AppBundle\Entity\News', $news);
 
@@ -37,6 +45,6 @@ class NewsDeserializerTest extends \PHPUnit_Framework_TestCase
 
 	protected function setUp()
 	{
-		$this->deserializer = new NewsDeserializer(SerializerBuilder::create()->build());
+		$this->deserializer = new NewsDeserializer(SerializerBuilder::create()->build(), 'json');
 	}
 }

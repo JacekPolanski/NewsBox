@@ -7,25 +7,38 @@ use JMS\Serializer\Serializer;
 
 class NewsDeserializer
 {
+	const FORMAT_TYPES = ['json', 'xml', 'yaml'];
+
 	/**
 	 * @var Serializer
 	 */
 	private $serializer;
 
 	/**
-	 * @param Serializer $serializer
+	 * @var string
 	 */
-	public function __construct(Serializer $serializer)
+	private $format;
+
+	/**
+	 * @param Serializer $serializer
+	 * @param string $format json, xml or yaml
+	 */
+	public function __construct(Serializer $serializer, $format)
 	{
+		if (!in_array($format, self::FORMAT_TYPES)) {
+			throw new \UnexpectedValueException('Deserializer support only JSON, XML or YAML data formats.');
+		}
+
 		$this->serializer = $serializer;
+		$this->format = $format;
 	}
 
 	/**
-	 * @param string $jsonData
+	 * @param string $data
 	 * @return News
 	 */
-	public function deserializeFromJson($jsonData)
+	public function deserializeOne($data)
 	{
-		return $this->serializer->deserialize($jsonData, 'AppBundle\Entity\News', 'json');
+		return $this->serializer->deserialize($data, 'AppBundle\Entity\News', $this->format);
 	}
 }
