@@ -30,6 +30,12 @@ class NewsImporter
 	 */
 	public function importFromJsonFile($filename)
 	{
+		$data = @file_get_contents($this->importDir.$filename);
+
+		if (!$data) {
+			throw new \RuntimeException(sprintf('Cant read %s file', $filename));
+		}
+
 		return $this->deserializer->deserializeCollection(file_get_contents($this->importDir.$filename));
 	}
 }
