@@ -3,6 +3,7 @@
 namespace AppBundle\Service;
 
 use AppBundle\Entity\News;
+use AppBundle\Entity\NewsCollection;
 use JMS\Serializer\Serializer;
 
 class NewsDeserializer
@@ -40,5 +41,14 @@ class NewsDeserializer
 	public function deserializeOne($data)
 	{
 		return $this->serializer->deserialize($data, 'AppBundle\Entity\News', $this->format);
+	}
+
+	/**
+	 * @param $data
+	 * @return NewsCollection
+	 */
+	public function deserializeCollection($data)
+	{
+		return $this->serializer->deserialize($data, 'ArrayCollection<AppBundle\Entity\News>', $this->format);
 	}
 }
