@@ -20,40 +20,58 @@ class NewsDeserializerTest extends \PHPUnit_Framework_TestCase
 		new NewsDeserializer(SerializerBuilder::create()->build(), 'mp3');
 	}
 
-	public function testDeserializeOneFromJson()
+	/**
+	 * @dataProvider provideDataForDeserializeTest
+	 * @param string $expectedTitle
+	 * @param string $expectedTime
+	 * @param string $expectedContent
+	 */
+	public function testDeserializeOneFromJson($expectedTitle, $expectedTime, $expectedContent)
 	{
-		$expectedNewsTitle = 'Zderzyły się trzy auta. Jedna osoba nie żyje, pięć jest rannych';
-		$expectedNewsTime = '2016-04-02 14:24';
-		$expectedNewsContent = 'Tragiczny wypadek na trasie Bydgoszcz-Stryszek, gdzie zderzyły się trzy samochody.';
-
 		$news = $this->deserializer->deserializeOne(
-			$this->prepareSingleJsonNews($expectedNewsTitle, $expectedNewsTime, $expectedNewsContent)
+			$this->prepareSingleJsonNews($expectedTitle, $expectedTime, $expectedContent)
 		);
 
 		$this->assertInstanceOf('AppBundle\Entity\News', $news);
 
-		$this->assertEquals($expectedNewsTitle, $news->getTitle());
-		$this->assertEquals($expectedNewsTime, $news->getTime()->format('Y-m-d H:i'));
-		$this->assertEquals($expectedNewsContent, $news->getContent());
+		$this->assertEquals($expectedTitle, $news->getTitle());
+		$this->assertEquals($expectedTime, $news->getTime()->format('Y-m-d H:i'));
+		$this->assertEquals($expectedContent, $news->getContent());
 	}
 
-	public function testDeserializeCollectionFromJson()
+	/**
+	 * @dataProvider provideDataForDeserializeTest
+	 * @param string $expectedTitle
+	 * @param string $expectedTime
+	 * @param string $expectedContent
+	 */
+	public function testDeserializeCollectionFromJson($expectedTitle, $expectedTime, $expectedContent)
 	{
-		$expectedNewsTitle = 'Zderzyły się trzy auta. Jedna osoba nie żyje, pięć jest rannych';
-		$expectedNewsTime = '2016-04-02 14:24';
-		$expectedNewsContent = 'Tragiczny wypadek na trasie Bydgoszcz-Stryszek, gdzie zderzyły się trzy samochody.';
-
 		$newsCollection = $this->deserializer->deserializeCollection(
-			$this->prepareJsonNewsCollection($expectedNewsTitle, $expectedNewsTime, $expectedNewsContent)
+			$this->prepareJsonNewsCollection($expectedTitle, $expectedTime, $expectedContent)
 		);
 
 		foreach ($newsCollection as $news) {
 			$this->assertInstanceOf('AppBundle\Entity\News', $news);
 
-			$this->assertEquals($expectedNewsTitle, $news->getTitle());
-			$this->assertEquals($expectedNewsTime, $news->getTime()->format('Y-m-d H:i'));
-			$this->assertEquals($expectedNewsContent, $news->getContent());
+			$this->assertEquals($expectedTitle, $news->getTitle());
+			$this->assertEquals($expectedTime, $news->getTime()->format('Y-m-d H:i'));
+			$this->assertEquals($expectedContent, $news->getContent());
 		}
+	}
+
+	/**
+	 * @return array
+	 */
+	public function provideDataForDeserializeTest()
+	{
+		return [
+			[
+				'Zderzyły się trzy auta. Jedna osoba nie żyje, pięć jest rannych',
+				'2016-04-02 14:24',
+				'Tragiczny wypadek na trasie Bydgoszcz-Stryszek, gdzie zderzyły się trzy samochody.',
+			],
+		];
 	}
 
 	protected function setUp()
