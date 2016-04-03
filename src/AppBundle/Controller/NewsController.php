@@ -33,7 +33,7 @@ class NewsController extends Controller
      * @Route("/news/{id}", name="news", requirements={"id": "\d+"})
      * @Template()
      *
-     * @param $id
+     * @param int $id
      * @return array
      */
     public function newsAction($id)
