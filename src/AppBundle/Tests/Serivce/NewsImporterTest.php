@@ -6,6 +6,10 @@ use AppBundle\Service\NewsDeserializer;
 use AppBundle\Service\NewsImporter;
 use JMS\Serializer\SerializerBuilder;
 
+/**
+ * Class NewsImporterTest
+ * @package AppBundle\Tests\Service
+ */
 class NewsImporterTest extends \PHPUnit_Framework_TestCase
 {
     /**

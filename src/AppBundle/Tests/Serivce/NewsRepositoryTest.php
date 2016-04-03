@@ -7,6 +7,10 @@ use AppBundle\Service\NewsImporter;
 use AppBundle\Service\NewsRepository;
 use JMS\Serializer\SerializerBuilder;
 
+/**
+ * Class NewsRepositoryTest
+ * @package AppBundle\Tests\Service
+ */
 class NewsRepositoryTest extends \PHPUnit_Framework_TestCase
 {
     /**
