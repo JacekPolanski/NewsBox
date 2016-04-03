@@ -9,40 +9,40 @@ use JMS\Serializer\SerializerBuilder;
 
 class NewsRepositoryTest extends \PHPUnit_Framework_TestCase
 {
-	/**
-	 * @var NewsRepository
-	 */
-	private $repository;
+    /**
+     * @var NewsRepository
+     */
+    private $repository;
 
-	/**
-	 * @dataProvider provideData
-	 * @param int $id
-	 * @param string $expectedTitle
-	 */
-	public function testGetNewsById($id, $expectedTitle)
-	{
-		$news = $this->repository->findById($id);
+    /**
+     * @dataProvider provideData
+     * @param int $id
+     * @param string $expectedTitle
+     */
+    public function testGetNewsById($id, $expectedTitle)
+    {
+        $news = $this->repository->findById($id);
 
-		$this->assertInstanceOf('AppBundle\Entity\News', $news);
-		$this->assertEquals($expectedTitle, $news->getTitle());
-	}
+        $this->assertInstanceOf('AppBundle\Entity\News', $news);
+        $this->assertEquals($expectedTitle, $news->getTitle());
+    }
 
-	public function provideData()
-	{
-		return [
-			[0, 'Zderzyły się trzy auta. Jedna osoba nie żyje, pięć jest rannych'],
-			[4, '88-latek wpadł w sidła oszustów. Dał im 90 tys. zł na tajną akcję'],
-		];
-	}
+    public function provideData()
+    {
+        return [
+            [0, 'Zderzyły się trzy auta. Jedna osoba nie żyje, pięć jest rannych'],
+            [4, '88-latek wpadł w sidła oszustów. Dał im 90 tys. zł na tajną akcję'],
+        ];
+    }
 
-	protected function setUp()
-	{
-		$this->repository = new NewsRepository(
-			new NewsImporter(
-				new NewsDeserializer(SerializerBuilder::create()->build(), 'json'),
-				__DIR__.'/Resources/'
-			),
-			'news_test.json'
-		);
-	}
+    protected function setUp()
+    {
+        $this->repository = new NewsRepository(
+            new NewsImporter(
+                new NewsDeserializer(SerializerBuilder::create()->build(), 'json'),
+                __DIR__ . '/Resources/'
+            ),
+            'news_test.json'
+        );
+    }
 }
