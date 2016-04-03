@@ -17,7 +17,7 @@ class NewsRepository
 
     /**
      * @param NewsImporter $importer
-     * @param string $fileName
+     * @param string       $fileName
      */
     public function __construct(NewsImporter $importer, $fileName)
     {
@@ -31,7 +31,7 @@ class NewsRepository
     public function findById($id)
     {
         foreach ($this->newsCollection as $news) {
-            if ((int)$id === $news->getId()) {
+            if ((int) $id === $news->getId()) {
                 return $news;
             }
         }

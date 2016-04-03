@@ -26,7 +26,7 @@ class NewsDeserializer
 
     /**
      * @param Serializer $serializer
-     * @param string $format json, xml or yaml
+     * @param string     $format     json, xml or yaml
      */
     public function __construct(Serializer $serializer, $format)
     {

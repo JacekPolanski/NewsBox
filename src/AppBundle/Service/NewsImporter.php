@@ -22,7 +22,7 @@ class NewsImporter
 
     /**
      * @param NewsDeserializer $deserializer
-     * @param string $importDir
+     * @param string           $importDir
      */
     public function __construct(NewsDeserializer $deserializer, $importDir)
     {

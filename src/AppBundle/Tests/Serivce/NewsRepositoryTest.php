@@ -20,7 +20,7 @@ class NewsRepositoryTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider provideData
-     * @param int $id
+     * @param int    $id
      * @param string $expectedTitle
      */
     public function testGetNewsById($id, $expectedTitle)

@@ -38,7 +38,7 @@ class NewsController extends Controller
      */
     public function newsAction($id)
     {
-        $news = $this->get('app.news_repository')->findById((int)$id);
+        $news = $this->get('app.news_repository')->findById((int) $id);
 
         if (!$news) {
             throw $this->createNotFoundException(sprintf('Brak elementu o id = %d', $id));
