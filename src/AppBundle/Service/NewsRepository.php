@@ -17,7 +17,7 @@ class NewsRepository
 
     /**
      * @param NewsImporter $importer
-     * @param $fileName
+     * @param string $fileName
      */
     public function __construct(NewsImporter $importer, $fileName)
     {
@@ -25,7 +25,7 @@ class NewsRepository
     }
 
     /**
-     * @param $id
+     * @param int $id
      * @return News|null
      */
     public function findById($id)
