@@ -6,6 +6,10 @@ use AppBundle\Entity\News;
 use AppBundle\Entity\NewsCollection;
 use JMS\Serializer\Serializer;
 
+/**
+ * Class NewsDeserializer
+ * @package AppBundle\Service
+ */
 class NewsDeserializer
 {
     const FORMAT_TYPES = ['json', 'xml', 'yaml'];

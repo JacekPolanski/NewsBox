@@ -4,6 +4,10 @@ namespace AppBundle\Service;
 
 use Symfony\Component\HttpFoundation\File\File;
 
+/**
+ * Class NewsImporter
+ * @package AppBundle\Service
+ */
 class NewsImporter
 {
     /**

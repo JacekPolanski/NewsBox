@@ -4,6 +4,10 @@ namespace AppBundle\Service;
 
 use AppBundle\Entity\News;
 
+/**
+ * Class NewsRepository
+ * @package AppBundle\Service
+ */
 class NewsRepository
 {
     /**
