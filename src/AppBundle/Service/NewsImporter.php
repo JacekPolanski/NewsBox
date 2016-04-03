@@ -2,6 +2,8 @@
 
 namespace AppBundle\Service;
 
+use Symfony\Component\HttpFoundation\File\File;
+
 class NewsImporter
 {
 	/**
@@ -30,12 +32,27 @@ class NewsImporter
 	 */
 	public function importFromJsonFile($filename)
 	{
-		$data = @file_get_contents($this->importDir.$filename);
+		$file = new File($this->importDir.$filename);
+
+		$this->validateJsonFile($file);
+
+		$data = @file_get_contents($file->getPathname());
 
 		if (!$data) {
-			throw new \RuntimeException(sprintf('Cant read %s file', $filename));
+			throw new \RuntimeException(sprintf('Cant read %s file', $file->getFilename()));
 		}
 
-		return $this->deserializer->deserializeCollection(file_get_contents($this->importDir.$filename));
+		return $this->deserializer->deserializeCollection($data);
+	}
+
+	/**
+	 * @param File $file
+	 * @throws \RuntimeException when validation fails
+	 */
+	private function validateJsonFile(File $file)
+	{
+		if ('json' !== $file->getExtension()) {
+			throw new \RuntimeException(sprintf('%s is not a Json file!', $file->getFilename()));
+		}
 	}
 }

@@ -30,6 +30,14 @@ class NewsImporterTest extends \PHPUnit_Framework_TestCase
 		$this->importer->importFromJsonFile('xxxx.json');
 	}
 
+	/**
+	 * @expectedException \RuntimeException
+	 */
+	public function testImportNotJsonFile()
+	{
+		$this->importer->importFromJsonFile('news_test.txt');
+	}
+
 	protected function setUp()
 	{
 		$this->importer = new NewsImporter(
