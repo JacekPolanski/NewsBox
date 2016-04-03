@@ -31,6 +31,9 @@ class NewsRepositoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expectedTitle, $news->getTitle());
     }
 
+    /**
+     * @return array
+     */
     public function provideData()
     {
         return [
