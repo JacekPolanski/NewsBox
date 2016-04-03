@@ -5,6 +5,10 @@ namespace AppBundle\Entity;
 use JMS\Serializer\Annotation\Type;
 use JMS\Serializer\Annotation\Inline;
 
+/**
+ * Class News
+ * @package AppBundle\Entity
+ */
 class News
 {
     /**
