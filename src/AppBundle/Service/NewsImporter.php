@@ -31,7 +31,7 @@ class NewsImporter
     }
 
     /**
-     * @param $filename
+     * @param string $filename
      * @return \AppBundle\Entity\News[]
      */
     public function importFromJsonFile($filename)
